@@ -1,5 +1,5 @@
 # spring-learning
-spring学习相关代码案例
+spring学习相关代码案例,项目全部基于H2数据库，避免本地run不起来问题
 
 ### spring-learning-transaction
 spring事务相关学习案例
