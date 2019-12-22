@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.jsu.ykwoo.spring.learing.transaction.mappers.AccountInfoDAO">
+  <resultMap id="BaseResultMap" type="cn.jsu.ykwoo.spring.learing.transaction.dataobj.AccountDO" >
+    <id column="id" property="id" />
+    <result column="created_time" property="createdTime" />
+    <result column="updated_time" property="createdTime" />
+    <result column="acct_no" property="acctNo" />
+    <result column="user_id" property="userId" />
+    <result column="type" property="type" />
+    <result column="available_balance" property="availableBalance" />
+    <result column="un_available_balance" property="unAvailableBalance" />
+    <result column="acct_available" property="acctAvailable" />
+  </resultMap>
+
+  <sql id="BASE_COLUMN">
+    id,
+    created_time,
+    updated_time,
+    acct_no,
+    user_id,
+    type,
+    available_balance,
+    un_available_balance,
+    acct_available
+  </sql>
+  <sql id="TABLE_NAME">
+    acct_info
+  </sql>
+  <update id="updateAccountMoney">
+    update <include refid="TABLE_NAME"/>
+    set available_balance = available_balance + #{money}
+    where acct_no=#{acctNo}
+  </update>
+
+  <select id="queryById" resultMap="BaseResultMap">
+    select <include refid="BASE_COLUMN"></include>
+    from <include refid="TABLE_NAME"/>
+    where id=#{id}
+  </select>
+
+  <select id="queryByAcctNo" resultMap="BaseResultMap">
+    select <include refid="BASE_COLUMN"></include>
+    from <include refid="TABLE_NAME"/>
+    where acct_no=#{acctNo}
+  </select>
+  <select id="queryAll"
+    resultMap="BaseResultMap">
+    select <include refid="BASE_COLUMN"/>
+    from <include refid="TABLE_NAME"/>
+  </select>
+  <select id="queryByAcctNoLock"
+    resultMap="BaseResultMap">
+    select <include refid="BASE_COLUMN"></include>
+    from <include refid="TABLE_NAME"/>
+    where acct_no=#{acctNo}
+    for update
+  </select>
+
+</mapper>
